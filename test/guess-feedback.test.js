@@ -8,7 +8,7 @@ describe('number feedback', () => {
         const feedback = getGuessFeedback(secretNumber, guessedNumber);
 
         expect(feedback).toBe('0A0B');
-    })
+    });
 
     it.each`
     secretNumber    |   guessedNumber
@@ -20,5 +20,17 @@ describe('number feedback', () => {
         const feedback = getGuessFeedback(secretNumber, guessedNumber);
 
         expect(feedback).toBe('1A0B');
+    });
+
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'1278'}
+    ${'1234'}         |   ${'1638'}
+    ${'1234'}         |   ${'5238'}
+    ${'1234'}         |   ${'5274'}
+    `('should return 2A0B when secret number $secretNumber and guessed number $guessedNumber have and only have two digit match in same position', ({ secretNumber, guessedNumber }) => {
+        const feedback = getGuessFeedback(secretNumber, guessedNumber);
+
+        expect(feedback).toBe('2A0B');
     });
 });
