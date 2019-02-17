@@ -14,13 +14,21 @@ async function drive(customReadLine, customWrite, customGenerateRandomInt) {
 
     for (let usedTurns = 0; usedTurns < 6; usedTurns += 1) {
         const guessedNumber = await readLine();
-        const feedback = getGuessFeedback(secretNumber, guessedNumber);
-        if (feedback === '4A0B') {
-            winTheGame = true;
-            break;
-        } else {
-            write(`${feedback}.\n`)
-        }
+        try {
+            const feedback = getGuessFeedback(secretNumber, guessedNumber);
+            if (feedback === '4A0B') {
+                winTheGame = true;
+                break;
+            } else {
+                write(`${feedback}.\n`)
+            }
+        } catch (e) {
+            if (e.message === 'Invalid argument') {
+                write('Invalid argument.\n');
+            } else {
+                throw e;
+            }
+        } 
     }
     if (winTheGame) {
         write(`Congratulations! The secret number is ${secretNumber}.\n`);
