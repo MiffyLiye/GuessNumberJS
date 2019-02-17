@@ -95,4 +95,14 @@ describe('number feedback', () => {
 
         expect(feedback).toBe('0A4B');
     });
+
+    it.each`
+    secretNumber    |   guessedNumber   |   feedback
+    ${'1234'}         |   ${'1673'}     |   ${'1A1B'}
+    ${'1234'}         |   ${'1243'}     |   ${'2A2B'}
+    `('should return $feedback when secret number is $secretNumber and guessed number is $guessedNumber', ({ secretNumber, guessedNumber, feedback }) => {
+        const actualFeedback = getGuessFeedback(secretNumber, guessedNumber);
+
+        expect(actualFeedback).toBe(feedback);
+    });
 });
