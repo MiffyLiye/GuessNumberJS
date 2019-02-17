@@ -1,3 +1,3 @@
 const { drive } = require('./driver');
 
-drive();
+drive(null, null, null, process.env.TOTAL_TURNS);
