@@ -16,7 +16,7 @@ describe('number feedback', () => {
     ${'1234'}         |   ${'5278'}
     ${'1234'}         |   ${'5638'}
     ${'1234'}         |   ${'5674'}
-    `('should return 1A0B when secret number is $secretNumber and guessed number is $guessedNumber', ({ secretNumber, guessedNumber }) => {
+    `('should return 1A0B when secret number $secretNumber and guessed number $guessedNumber have and only have one digit match in same position', ({ secretNumber, guessedNumber }) => {
         const feedback = getGuessFeedback(secretNumber, guessedNumber);
 
         expect(feedback).toBe('1A0B');
