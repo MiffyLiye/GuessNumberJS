@@ -10,39 +10,15 @@ describe('number feedback', () => {
         expect(feedback).toBe('0A0B');
     })
 
-    it('should return 1A0B when secret number is 1234 and guessed number is 1678', () => {
-        const secretNumber = '1234';
-        const guessedNumber = '1678';
-
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'1678'}
+    ${'1234'}         |   ${'5278'}
+    ${'1234'}         |   ${'5638'}
+    ${'1234'}         |   ${'5674'}
+    `('should return 1A0B when secret number is $secretNumber and guessed number is $guessedNumber', ({ secretNumber, guessedNumber }) => {
         const feedback = getGuessFeedback(secretNumber, guessedNumber);
 
         expect(feedback).toBe('1A0B');
-    })
-
-    it('should return 1A0B when secret number is 1234 and guessed number is 5278', () => {
-        const secretNumber = '1234';
-        const guessedNumber = '5278';
-
-        const feedback = getGuessFeedback(secretNumber, guessedNumber);
-
-        expect(feedback).toBe('1A0B');
-    })
-
-    it('should return 1A0B when secret number is 1234 and guessed number is 5638', () => {
-        const secretNumber = '1234';
-        const guessedNumber = '5638';
-
-        const feedback = getGuessFeedback(secretNumber, guessedNumber);
-
-        expect(feedback).toBe('1A0B');
-    })
-
-    it('should return 1A0B when secret number is 1234 and guessed number is 5674', () => {
-        const secretNumber = '1234';
-        const guessedNumber = '5674';
-
-        const feedback = getGuessFeedback(secretNumber, guessedNumber);
-
-        expect(feedback).toBe('1A0B');
-    })
+    });
 });
