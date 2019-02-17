@@ -1,10 +1,13 @@
 const { getGuessFeedback } = require('../src/guess-feedback');
 
 describe('number feedback', () => {
-    it('should return 0A0B when secret number is 1234 and guessed number is 5678', () => {
-        const secretNumber = '1234';
-        const guessedNumber = '5678';
-
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'5678'}
+    ${'2345'}         |   ${'6789'}
+    ${'0123'}         |   ${'4567'}
+    ${'4321'}         |   ${'0987'}
+    `('should return 0A0B when secret number $secretNumber and guessed number $guessedNumber have no digit match in same position', ({ secretNumber, guessedNumber }) => {
         const feedback = getGuessFeedback(secretNumber, guessedNumber);
 
         expect(feedback).toBe('0A0B');
@@ -32,5 +35,24 @@ describe('number feedback', () => {
         const feedback = getGuessFeedback(secretNumber, guessedNumber);
 
         expect(feedback).toBe('2A0B');
+    });
+
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'1238'}
+    ${'1234'}         |   ${'5234'}
+    `('should return 3A0B when secret number $secretNumber and guessed number $guessedNumber have and only have three digit match in same position', ({ secretNumber, guessedNumber }) => {
+        const feedback = getGuessFeedback(secretNumber, guessedNumber);
+
+        expect(feedback).toBe('3A0B');
+    });
+
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'1234'}
+    `('should return 3A0B when secret number $secretNumber and guessed number $guessedNumber have and only have three digit match in same position', ({ secretNumber, guessedNumber }) => {
+        const feedback = getGuessFeedback(secretNumber, guessedNumber);
+
+        expect(feedback).toBe('4A0B');
     });
 });
