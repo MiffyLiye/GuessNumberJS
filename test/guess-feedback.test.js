@@ -55,4 +55,44 @@ describe('number feedback', () => {
 
         expect(feedback).toBe('4A0B');
     });
+
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'5671'}
+    ${'1234'}         |   ${'5628'}
+    `('should return 0A1B when secret number $secretNumber and guessed number $guessedNumber have and only have one digit match in different position', ({ secretNumber, guessedNumber }) => {
+        const feedback = getGuessFeedback(secretNumber, guessedNumber);
+
+        expect(feedback).toBe('0A1B');
+    });
+
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'5612'}
+    ${'1234'}         |   ${'3478'}
+    `('should return 0A2B when secret number $secretNumber and guessed number $guessedNumber have and only have two digit match in different position', ({ secretNumber, guessedNumber }) => {
+        const feedback = getGuessFeedback(secretNumber, guessedNumber);
+
+        expect(feedback).toBe('0A2B');
+    });
+
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'5123'}
+    ${'1234'}         |   ${'2348'}
+    `('should return 0A3B when secret number $secretNumber and guessed number $guessedNumber have and only have three digit match in different position', ({ secretNumber, guessedNumber }) => {
+        const feedback = getGuessFeedback(secretNumber, guessedNumber);
+
+        expect(feedback).toBe('0A3B');
+    });
+
+    it.each`
+    secretNumber    |   guessedNumber
+    ${'1234'}         |   ${'4321'}
+    ${'1234'}         |   ${'2143'}
+    `('should return 0A4B when secret number $secretNumber and guessed number $guessedNumber have and only have four digit match in different position', ({ secretNumber, guessedNumber }) => {
+        const feedback = getGuessFeedback(secretNumber, guessedNumber);
+
+        expect(feedback).toBe('0A4B');
+    });
 });
