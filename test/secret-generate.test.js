@@ -15,7 +15,7 @@ describe('secret generator', () => {
         expect(uniqueDigits.size).toBe(secretNumber.length);
     });
 
-    it.each`
+    it.skip.each`
     secretNumber    |   sequence
     ${'1234'}       |   ${[1, 2, 3, 4]}
     ${'4321'}       |   ${[4, 3, 2, 1]}
