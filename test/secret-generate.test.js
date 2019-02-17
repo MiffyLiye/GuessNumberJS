@@ -1,3 +1,4 @@
+const sinon = require('sinon');
 const {generateSecretNumber} = require('../src/secret-generate');
 
 describe('secret generator', () => {
@@ -20,12 +21,10 @@ describe('secret generator', () => {
     ${'4321'}       |   ${[4, 3, 2, 1]}
     ${'1234'}       |   ${[1, 2, 2, 3, 4]}
     `('should generate $secretNumber when random int generator gives $sequence', ({secretNumber, sequence}) => {
-        let position = 0;
-        const customGenerateInt = () => {
-            const digit = sequence[position];
-            position += 1;
-            return digit;
-        };
+        const customGenerateInt = sinon.stub();
+        for (let i = 0; i < sequence.length; i += 1) {
+            customGenerateInt.onCall(i).returns(sequence[i]);
+        }
 
         const actualSecretNumber = generateSecretNumber(customGenerateInt);
 
