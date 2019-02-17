@@ -1,10 +1,7 @@
 function getGuessFeedback(secretNumber, guessedNumber) {
-    let rightPositionDigitsMatchCount = 0;
-    for (let i = 0; i < 4; i++) {
-        if (secretNumber[i] === guessedNumber[i]) {
-            rightPositionDigitsMatchCount += 1;
-        }
-    }
+    const rightPositionDigitsMatchCount = secretNumber.split('')
+        .map((secretDigit, index) => secretDigit === guessedNumber[index] ? 1 : 0)
+        .reduce((a, b) => a + b, 0);
 
     return `${rightPositionDigitsMatchCount}A0B`;
 }
