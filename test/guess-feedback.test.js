@@ -106,3 +106,26 @@ describe('number feedback', () => {
         expect(actualFeedback).toBe(feedback);
     });
 });
+
+describe('guess feedback exceptions', () => {
+    it.each`
+    secretNumber    |   guessedNumber
+    ${null}         |   ${'1234'}
+    ${''}           |   ${'1234'}
+    ${'123'}        |   ${'1234'}
+    ${'12345'}      |   ${'1234'}
+    ${'abcd'}       |   ${'1234'}
+    ${'12.3'}       |   ${'1234'}
+    ${'1223'}       |   ${'1234'}
+    ${1234}         |   ${'1234'}
+    ${'1234'}       |   ${null}
+    ${'1234'}       |   ${''}
+    ${'1234'}       |   ${'123'}
+    ${'1234'}       |   ${'12345'}
+    ${'1234'}       |   ${'abcd'}
+    ${'1234'}       |   ${'1223'}
+    ${'1234'}       |   ${1234}
+    `(`should throw when argument is invalid ($secretNumber, $guessedNumber})`, ({ secretNumber, guessedNumber }) => {
+        expect(() => getGuessFeedback(secretNumber, guessedNumber)).toThrow(Error("Invalid argument"))
+    });
+});
