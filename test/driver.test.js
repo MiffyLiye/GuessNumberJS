@@ -1,0 +1,50 @@
+const sinon = require('sinon');
+const driver = require('../src/driver');
+
+describe('driver', () => {
+    it('should print congratulations when guessed the secret in 6 trials', async () => {
+        const generateInt = sinon.stub();
+        generateInt.onCall(0).returns(1);
+        generateInt.onCall(1).returns(2);
+        generateInt.onCall(2).returns(3);
+        generateInt.onCall(3).returns(4);
+        
+        const readLine = sinon.stub();
+        readLine.onCall(0).resolves('1235');
+        readLine.onCall(1).resolves('1234');
+
+        const write = sinon.spy();
+
+        await driver.drive(readLine, write, generateInt);
+
+        expect(write.getCall(0).args[0]).toBe('Welcome to guess number game!\n');
+        expect(write.getCall(1).args[0]).toBe('You will have 6 turns.\n');
+        expect(write.getCall(2).args[0]).toBe('3A0B.\n');
+        expect(write.getCall(3).args[0]).toBe('Congratulations! The secret number is 1234.\n');
+    });
+
+    it('should print run out of turns when not guessed the secret in 6 trials', async () => {
+        const generateInt = sinon.stub();
+        generateInt.onCall(0).returns(1);
+        generateInt.onCall(1).returns(2);
+        generateInt.onCall(2).returns(3);
+        generateInt.onCall(3).returns(4);
+
+        const readLine = sinon.stub();
+        readLine.resolves('1235');
+
+        const write = sinon.spy();
+
+        await driver.drive(readLine, write, generateInt);
+
+        expect(write.getCall(0).args[0]).toBe('Welcome to guess number game!\n');
+        expect(write.getCall(1).args[0]).toBe('You will have 6 turns.\n');
+        expect(write.getCall(2).args[0]).toBe('3A0B.\n');
+        expect(write.getCall(3).args[0]).toBe('3A0B.\n');
+        expect(write.getCall(4).args[0]).toBe('3A0B.\n');
+        expect(write.getCall(5).args[0]).toBe('3A0B.\n');
+        expect(write.getCall(6).args[0]).toBe('3A0B.\n');
+        expect(write.getCall(7).args[0]).toBe('3A0B.\n');
+        expect(write.getCall(8).args[0]).toBe('You have run out of turns! The secret number is 1234.\n');
+    });
+});

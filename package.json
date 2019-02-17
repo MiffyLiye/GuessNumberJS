@@ -12,5 +12,8 @@
   "devDependencies": {
     "jest": "^24.1.0",
     "sinon": "^7.2.3"
+  },
+  "dependencies": {
+    "async-prompt": "^1.0.1"
   }
 }

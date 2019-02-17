@@ -1,9 +1,9 @@
-function defaultGetRandomInt(max) {
+function defaultGenerateRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function generateSecretNumber(customGetRandomInt) {
-    const getRandomInt = customGetRandomInt || defaultGetRandomInt;
+function generateSecretNumber(customGenerateRandomInt) {
+    const getRandomInt = customGenerateRandomInt || defaultGenerateRandomInt;
 
     let secret = '';
     while (secret.length < 4) {
