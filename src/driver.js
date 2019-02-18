@@ -1,8 +1,11 @@
 const prompt = require('async-prompt');
-const { generateSecretNumber } = require('./secret-generate');
-const { getGuessFeedback } = require('./guess-feedback');
 
-async function drive(customReadLine, customWrite, customGenerateRandomInt, customTotalTurns) {
+async function drive({
+    generateSecretNumber,
+    getGuessFeedback,
+    customReadLine,
+    customWrite,
+    customTotalTurns }) {
     const readLine = customReadLine || (() => prompt(''));
     const write = customWrite || (s => process.stdout.write(s));
     const totalTurns = customTotalTurns || 6;
@@ -10,7 +13,7 @@ async function drive(customReadLine, customWrite, customGenerateRandomInt, custo
     write('Welcome to guess number game!\n');
     write(`You will have ${totalTurns} turns.\n`);
 
-    const secretNumber = generateSecretNumber(customGenerateRandomInt);
+    const secretNumber = generateSecretNumber();
     let winTheGame = false;
 
     for (let usedTurns = 0; usedTurns < totalTurns; usedTurns += 1) {
@@ -29,7 +32,7 @@ async function drive(customReadLine, customWrite, customGenerateRandomInt, custo
             } else {
                 throw e;
             }
-        } 
+        }
     }
     if (winTheGame) {
         write(`Congratulations! The secret number is ${secretNumber}.\n`);

@@ -1,4 +1,6 @@
 const sinon = require('sinon');
+const { generateSecretNumber } = require('../src/secret-generate');
+const { getGuessFeedback } = require('../src/guess-feedback');
 const driver = require('../src/driver');
 
 describe('driver', () => {
@@ -15,7 +17,13 @@ describe('driver', () => {
 
         const write = sinon.spy();
 
-        await driver.drive(readLine, write, generateInt);
+        await driver.drive({
+            generateSecretNumber: () => generateSecretNumber(generateInt),
+            getGuessFeedback,
+            customReadLine: readLine,
+            customWrite: write,
+            customTotalTurns: null
+        });
 
         expect(write.getCall(0).args[0]).toBe('Welcome to guess number game!\n');
         expect(write.getCall(1).args[0]).toBe('You will have 6 turns.\n');
@@ -35,7 +43,13 @@ describe('driver', () => {
 
         const write = sinon.spy();
 
-        await driver.drive(readLine, write, generateInt);
+        await driver.drive({
+            generateSecretNumber: () => generateSecretNumber(generateInt),
+            getGuessFeedback,
+            customReadLine: readLine,
+            customWrite: write,
+            customTotalTurns: null
+        });
 
         expect(write.getCall(0).args[0]).toBe('Welcome to guess number game!\n');
         expect(write.getCall(1).args[0]).toBe('You will have 6 turns.\n');
@@ -63,7 +77,13 @@ describe('driver', () => {
 
         const write = sinon.spy();
 
-        await driver.drive(readLine, write, generateInt);
+        await driver.drive({
+            generateSecretNumber: () => generateSecretNumber(generateInt),
+            getGuessFeedback,
+            customReadLine: readLine,
+            customWrite: write,
+            customTotalTurns: null
+        });
 
         expect(write.getCall(0).args[0]).toBe('Welcome to guess number game!\n');
         expect(write.getCall(1).args[0]).toBe('You will have 6 turns.\n');

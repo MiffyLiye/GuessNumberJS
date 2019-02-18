@@ -1,3 +1,11 @@
+const { generateSecretNumber } = require('./secret-generate');
+const { getGuessFeedback } = require('./guess-feedback');
 const { drive } = require('./driver');
 
-drive(null, null, null, process.env.TOTAL_TURNS);
+drive({
+    generateSecretNumber,
+    getGuessFeedback,
+    customReadLine: null,
+    customWrite: null,
+    customTotalTurns: process.env.TOTAL_TURNS
+});
