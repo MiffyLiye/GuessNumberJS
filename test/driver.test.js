@@ -1,15 +1,11 @@
 const sinon = require('sinon');
-const { generateSecretNumber } = require('../src/secret-generate');
 const { getGuessFeedback } = require('../src/guess-feedback');
 const driver = require('../src/driver');
 
 describe('driver', () => {
     it('should print congratulations when guessed the secret in 6 trials', async () => {
-        const generateInt = sinon.stub();
-        generateInt.onCall(0).returns(1);
-        generateInt.onCall(1).returns(2);
-        generateInt.onCall(2).returns(3);
-        generateInt.onCall(3).returns(4);
+        const generateSecretNumber = sinon.stub();
+        generateSecretNumber.returns('1234');
         
         const readLine = sinon.stub();
         readLine.onCall(0).resolves('1235');
@@ -18,7 +14,7 @@ describe('driver', () => {
         const write = sinon.spy();
 
         await driver.drive({
-            generateSecretNumber: () => generateSecretNumber(generateInt),
+            generateSecretNumber,
             getGuessFeedback,
             customReadLine: readLine,
             customWrite: write,
@@ -32,11 +28,8 @@ describe('driver', () => {
     });
 
     it('should print run out of turns when not guessed the secret in 6 trials', async () => {
-        const generateInt = sinon.stub();
-        generateInt.onCall(0).returns(1);
-        generateInt.onCall(1).returns(2);
-        generateInt.onCall(2).returns(3);
-        generateInt.onCall(3).returns(4);
+        const generateSecretNumber = sinon.stub();
+        generateSecretNumber.returns('1234');
 
         const readLine = sinon.stub();
         readLine.resolves('1235');
@@ -44,7 +37,7 @@ describe('driver', () => {
         const write = sinon.spy();
 
         await driver.drive({
-            generateSecretNumber: () => generateSecretNumber(generateInt),
+            generateSecretNumber,
             getGuessFeedback,
             customReadLine: readLine,
             customWrite: write,
@@ -63,11 +56,8 @@ describe('driver', () => {
     });
 
     it('should print error messages when input invalid guessed numbers', async () => {
-        const generateInt = sinon.stub();
-        generateInt.onCall(0).returns(1);
-        generateInt.onCall(1).returns(2);
-        generateInt.onCall(2).returns(3);
-        generateInt.onCall(3).returns(4);
+        const generateSecretNumber = sinon.stub();
+        generateSecretNumber.returns('1234');
 
         const readLine = sinon.stub();
         readLine.onCall(0).resolves('1223');
@@ -78,7 +68,7 @@ describe('driver', () => {
         const write = sinon.spy();
 
         await driver.drive({
-            generateSecretNumber: () => generateSecretNumber(generateInt),
+            generateSecretNumber,
             getGuessFeedback,
             customReadLine: readLine,
             customWrite: write,
