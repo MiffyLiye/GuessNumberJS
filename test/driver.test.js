@@ -24,7 +24,8 @@ describe('driver', () => {
         expect(write.getCall(0).args[0]).toBe('Welcome to guess number game!\n');
         expect(write.getCall(1).args[0]).toBe('You will have 6 turns.\n');
         expect(write.getCall(2).args[0]).toBe('3A0B.\n');
-        expect(write.getCall(3).args[0]).toBe('Congratulations! The secret number is 1234.\n');
+        expect(write.getCall(3).args[0]).toBe('4A0B.\n');
+        expect(write.getCall(4).args[0]).toBe('Congratulations! The secret number is 1234.\n');
     });
 
     it('should print run out of turns when not guessed the secret in 6 trials', async () => {
@@ -80,6 +81,7 @@ describe('driver', () => {
         expect(write.getCall(2).args[0]).toBe('Invalid argument.\n');
         expect(write.getCall(3).args[0]).toBe('Invalid argument.\n');
         expect(write.getCall(4).args[0]).toBe('Invalid argument.\n');
-        expect(write.getCall(5).args[0]).toBe('Congratulations! The secret number is 1234.\n');
+        expect(write.getCall(5).args[0]).toBe('4A0B.\n');
+        expect(write.getCall(6).args[0]).toBe('Congratulations! The secret number is 1234.\n');
     });
 });

@@ -20,11 +20,10 @@ async function drive({
         const guessedNumber = await readLine();
         try {
             const feedback = getGuessFeedback(secretNumber, guessedNumber);
+            write(`${feedback}.\n`)
             if (feedback === '4A0B') {
                 winTheGame = true;
                 break;
-            } else {
-                write(`${feedback}.\n`)
             }
         } catch (e) {
             if (e.message === 'Invalid argument') {
