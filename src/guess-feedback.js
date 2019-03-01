@@ -12,7 +12,7 @@ function isValidArgumentNumber(number) {
     }
 
     const uniqueDigits = new Set(number.split(''));
-    if (uniqueDigits.size !== 4) {
+    if (uniqueDigits.size !== number.length) {
         return false;
     }
 
