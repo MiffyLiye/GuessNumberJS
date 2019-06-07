@@ -10,7 +10,7 @@
   "author": "Wang, Tao",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^24.1.0",
+    "jest": "^24.8.0",
     "sinon": "^7.2.3"
   },
   "dependencies": {
