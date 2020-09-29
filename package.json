@@ -11,7 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^26.1.0",
-    "sinon": "^9.0.2"
+    "sinon": "^9.1.0"
   },
   "dependencies": {
     "async-prompt": "^1.0.1"
